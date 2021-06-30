@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gold</title>
+    <style>
+        * {
+            margin: 0px auto;
+        }
+
+        #wrapper {
+            width: 900px;
+            height: 950px;
+            background-color: peachpuff;
+            padding: 20px;
+        }
+
+        #locations {
+            display: flex;
+            font-family: sans-serif;
+            color: gold;
+        }
+
+        .box {
+            width: 18%;
+            height: 100px;
+            background-image: linear-gradient(red, yellow);
+            padding: 20px;
+            text-align: center;
+            border: 5px solid rgb(110, 94, 212);
+            border-radius: 15px;
+        }
+
+        #activity {
+            background-image: linear-gradient(yellow, red);
+            border: 5px solid rgb(109, 103, 103);
+            border-radius: 10px;
+            width: 100%;
+            height: 500px;
+
+        }
+
+
+
+        .gold {
+            width: 25px;
+            background-color: white;
+        }
+
+        .deleteButton {
+            background-color: salmon;
+            color: white;
+            align-items: center;
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        #locations button {
+            border-radius: 10px;
+        }
+
+        h2 {
+            color: black;
+            margin: 10px 0px 10px 20px;
+        }
+
+        h1 {
+            color:black;
+            margin: 5px 0px 5px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="head">
+            <h1>Gold: {{ request.session.gold }} </h1>
+        </div>
+        <h1>Let's make some money!</h1>
+        <div id="locations">
+            <div class="box">
+                <h3>Pirate Booty</h3>
+                <p>(earn or lose upto 50 gold dabloons)</p><br>
+                <form action="process" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="which_form" value="pirate_booty">
+                    <button id="b1" class="button" type="submit">Find Gold</button>
+                </form>
+
+            </div>
+            <div class="box">
+                <h3>Cave</h3>
+                <p>(earn up to 50 gold)</p><br>
+                <form action="process" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="which_form" value="cave">
+                    <button class="button" type="submit">Find Gold</button>
+                </form>
+
+            </div>
+            <div class="box">
+                <h3>Bank Safe</h3>
+                <p>(earn up to 50 gold)</p><br>
+                <form action="process" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="which_form" value="bank_safe">
+                    <button class="button" type="submit">Find Gold</button>
+                </form>
+            </div>
+            <div class="box">
+                <h3>Casino</h3>
+                <p>(earn or lose up to 50 gold)</p><br>
+                <form action="process" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="which_form" value="casino">
+                    <button class="button" type="submit">Find Gold</button>
+                </form>
+            </div>
+        </div>
+        <!--End of location-->
+        <h2>Activities:</h2>
+        <textarea id="activity" name="activity" rows="10" cols="50">
+            {% for x in request.session.messages %}
+                {{ x }}
+            {% endfor %}
+        </textarea>
+        <a class="deleteButton" href="/clear"><button>Delete</button></a>
+
+    </div>
+</body>
+
+</html>
